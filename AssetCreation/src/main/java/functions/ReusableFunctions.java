@@ -178,6 +178,7 @@ public class ReusableFunctions extends ReadexcelFile{
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, 120);
 			wait.until(ExpectedConditions.visibilityOfElementLocated((By) locator));
+			//wait.until(ExpectedConditions.visibilityOf(locator));
 			return true;
 		}catch(Exception e) {
 			return false;

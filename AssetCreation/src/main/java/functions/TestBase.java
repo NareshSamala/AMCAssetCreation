@@ -18,9 +18,11 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.Select;
 
 
@@ -130,6 +132,7 @@ public class TestBase extends ReusableFunctions{
 	}
 
 	//Launching browser based on input
+	@SuppressWarnings("deprecation")
 	public static  void launchBrowser(String BrowserName) {
 
 		if(BrowserName.equalsIgnoreCase("Firefox")) {
@@ -140,11 +143,11 @@ public class TestBase extends ReusableFunctions{
 		}else if(BrowserName.equalsIgnoreCase("chrome")) {
 			// System Property for Chrome Driver   
 			System.setProperty("webdriver.chrome.driver",ProjectPath+"\\drivers\\chromedriver.exe");  
-//			ChromeOptions options = new ChromeOptions();
-//			options.addArguments("--incognito");
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("--incognito");
 //			//options.addExtensions (new File(Projectpath+"\\Extentions\\extension_1_0_32_0.crx"));
-//			DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-//			capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+			DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+			capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 
 //			ChromeOptions options = new ChromeOptions();
 //			//options.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.ACCEPT);
@@ -163,7 +166,7 @@ public class TestBase extends ReusableFunctions{
 //			//Caps.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.ACCEPT);
 //			Caps.setCapability(ChromeOptions.CAPABILITY, options);
 //			// Instantiate a ChromeDriver class.       
-			driver=new ChromeDriver();  
+			driver=new ChromeDriver(capabilities);  
 		}if(BrowserName.equalsIgnoreCase("IE")) {
 			// System Property for IE Driver   
 			System.setProperty("webdriver.ie.driver", ".\\drivers\\IEDriverServer.exe");

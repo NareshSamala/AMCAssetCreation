@@ -226,6 +226,16 @@ public class FTAssetMainPage extends TestBase{
 	@FindBy(xpath = "//*[@class='button-div']//*[@class='mat-button-wrapper']")
 	private WebElement AddRow;
 
+	//Add Row Button
+	@FindBy(xpath = "//*[contains (@class , 'd-flex flex-row')]//*[@class='button-div']")
+	private WebElement AddRowbtn;
+
+
+
+	//Expandedtalent Tab
+	@FindBy(xpath = "//*[contains (@class , 'd-flex flex-row')]")
+	private WebElement Expandedtalent;
+
 	//Add Party Name
 
 	@FindBy(xpath = "//*[@class='ui-table-tbody']/tr[1]/td[2]//input")
@@ -316,7 +326,7 @@ public class FTAssetMainPage extends TestBase{
 		if(ProjectType.equalsIgnoreCase("Film")) {
 			System.out.println("Season and Episodes are not required for Film");
 		}else {
-		EnterNavigatorData();
+			EnterNavigatorData();
 		}
 	}
 
@@ -358,7 +368,7 @@ public class FTAssetMainPage extends TestBase{
 		//Select Talent Tab
 		scrolltoElement(TalentTab);
 		clickonButton(TalentTab);
-
+		//		waitForVisible(Expandedtalent);
 		Thread.sleep(5000);
 		for(int AddParties=1;AddParties<=2;AddParties++) {
 
@@ -374,12 +384,17 @@ public class FTAssetMainPage extends TestBase{
 				clickonButton(AddRow);
 
 				WebElement  PartyName = driver.findElement(By.xpath("//*[@class='ui-table-tbody']/tr["+rowline+"]/td[2]//input"));
+				scrolltoElement(PartyName);
 				enterText(PartyName, readdata[linenumber][7+nextValue].toString()); // Enter Text for Party
 				Thread.sleep(1000);
-				WebElement PartySelect=driver.findElement(By.xpath("//*[@class='cdk-overlay-pane']//span[@class='mat-option-text']"));
-				waitForVisible(PartySelect);
-				PartySelect.click();
-
+				try {
+					WebElement PartySelect=driver.findElement(By.xpath("//*[@class='cdk-overlay-pane']//span[@class='mat-option-text']"));
+					waitForVisible(PartySelect);
+					PartySelect.click();
+				}catch(Exception e) {
+					System.out.println("Selection not required");
+				}
+				Thread.sleep(1000);
 				WebElement RoleType=driver.findElement(By.xpath("//*[@class='ui-table-tbody']/tr["+rowline+"]/td[3]"));
 
 				clickonButton(RoleType); // Role type Selection
